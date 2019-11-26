@@ -2,7 +2,7 @@ import "phaser";
 
 import { GameScene } from "./scenes/gameScene"
 
-const config: Phaser.Types.Core.GameConfig = {
+export const config: Phaser.Types.Core.GameConfig = {
   title: "Education Asteroid Shooter",
   width: 1024,
   height: 768,
