@@ -36,7 +36,7 @@ node_modules
 
 # Generated files
 typings/
+dist/
 lib/*.js
-dist/*.js
 test/*.js
 *.map
