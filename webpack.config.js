@@ -8,17 +8,23 @@ module.exports = {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/
-      }
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+        }
+      },
     ]
   },
   devServer: {
-    contentBase: path.resolve(__dirname, "./src/"),
+    contentBase: path.resolve(__dirname, "./"),
     publicPath: "/dist/",
     port: 8080,
-    open: true
   },
   resolve: {
-    extensions: [ '.ts', '.tsx', '.js' ]
+    extensions: ['.ts', '.tsx', '.js']
   },
   output: {
     filename: 'index.js',

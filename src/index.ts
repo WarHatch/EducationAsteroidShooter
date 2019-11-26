@@ -1,10 +1,19 @@
 import "phaser";
 
+import { GameScene } from "./scenes/gameScene"
+
 const config: Phaser.Types.Core.GameConfig = {
   title: "Education Asteroid Shooter",
   width: 1024,
   height: 768,
   parent: "game",
+  scene: [GameScene],
+  physics: {
+    default: "arcade",
+    arcade: {
+      debug: false
+    }
+  },
   backgroundColor: "#18216D"
 };
 
