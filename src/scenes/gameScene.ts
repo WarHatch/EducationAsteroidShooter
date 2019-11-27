@@ -1,10 +1,7 @@
 import "phaser";
 
 import { config } from "../index";
-
-// Assets
-const citySprite = require('../../assets/sprites/city.png');
-const meteorSprite = require('../../assets/sprites/meteor.png');
+import { Meteor } from "../prefabs/meteor"
 
 export class GameScene extends Phaser.Scene {
   delta: number;
@@ -49,44 +46,33 @@ export class GameScene extends Phaser.Scene {
     var diff: number = time - this.lastMeteorTime;
     if (diff > this.delta) {
       this.lastMeteorTime = time;
-      this.emitStar();
+      this.spawnMeteor();
     }
     this.info.text =
       this.meteorsCaught + " caught - " +
       this.meteorsFallen + " fallen";
   }
 
-  private onClick(meteor: Phaser.Physics.Arcade.Image): () => void {
-    return function () {
-      meteor.setTint(0x00ff00);
-      meteor.setVelocity(0, 0);
-      this.meteorsCaught += 1;
-      this.time.delayedCall(100, function (star) {
-        star.destroy();
-      }, [meteor], this);
-    }
-  }
-  private onFall(meteor: Phaser.Physics.Arcade.Image): () => void {
-    return function () {
-      meteor.setTint(0xff0000);
-      this.meteorsFallen += 1;
-      this.time.delayedCall(100, function (star) {
-        star.destroy();
-      }, [meteor], this);
-    }
-  }
-
-  private emitStar(): void {
-    var meteor: Phaser.Physics.Arcade.Image;
+  private spawnMeteor(): void {
     // @ts-ignore
     var x = Phaser.Math.Between(25, config.width - 25);
     var y = 26;
-    meteor = this.physics.add.image(x, y, "meteor");
-    meteor.setDisplaySize(50, 50);
-    meteor.setVelocity(0, 200);
-    meteor.setInteractive();
-    meteor.on('pointerdown', this.onClick(meteor), this);
+    const destroyDelay = 200;
+    const meteor = new Meteor(
+      this, x, y,
+      () => {
+        this.meteorsCaught += 1;
+        this.time.delayedCall(destroyDelay, (m: Meteor) => {
+          m.destroy();
+        }, [meteor], this);
+      }
+    );
     this.physics.add.collider(meteor, this.city,
-      this.onFall(meteor), null, this);
+      meteor.onFall(() => {
+        this.meteorsFallen += 1;
+        this.time.delayedCall(destroyDelay, (m: Meteor) => {
+          m.destroy();
+        }, [meteor], this);
+      }), null, this);
   }
 };

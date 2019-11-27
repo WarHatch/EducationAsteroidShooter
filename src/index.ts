@@ -14,7 +14,7 @@ export const config: Phaser.Types.Core.GameConfig = {
       debug: false
     }
   },
-  backgroundColor: "#18216D"
+  backgroundColor: "#101752"
 };
 
 export class Game extends Phaser.Game {
@@ -24,5 +24,5 @@ export class Game extends Phaser.Game {
 }
 
 window.onload = () => {
-  const game = new Game(config);
+  new Game(config);
 };
