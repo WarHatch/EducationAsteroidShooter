@@ -2,6 +2,7 @@ import "phaser";
 
 import { config } from "../index";
 import { Meteor } from "../prefabs/meteor"
+import dataController from "../controllers/dataController";
 
 export class GameScene extends Phaser.Scene {
   delta: number;
@@ -10,6 +11,7 @@ export class GameScene extends Phaser.Scene {
   meteorsFallen: number;
   city: Phaser.Physics.Arcade.StaticGroup;
   info: Phaser.GameObjects.Text;
+  meteorGameData: IGameUnitDataSet;
 
   constructor() {
     super({
@@ -17,11 +19,12 @@ export class GameScene extends Phaser.Scene {
     });
   }
 
-  init(params): void {
+  async init(params) {
     this.delta = 1000;
     this.lastMeteorTime = 0;
     this.meteorsCaught = 0;
     this.meteorsFallen = 0;
+    this.meteorGameData = await dataController.getExampleDataUnit();
   }
 
   preload(): void {
@@ -55,11 +58,12 @@ export class GameScene extends Phaser.Scene {
 
   private spawnMeteor(): void {
     // @ts-ignore
-    var x = Phaser.Math.Between(25, config.width - 25);
-    var y = 26;
+    const x = Phaser.Math.Between(25, config.width - 25);
+    const y = 26;
     const destroyDelay = 200;
+    const meteorHTML = this.meteorGameData.gameElements[0].html; // TODO: needs rework
     const meteor = new Meteor(
-      this, x, y,
+      this, x, y, meteorHTML,
       () => {
         this.meteorsCaught += 1;
         this.time.delayedCall(destroyDelay, (m: Meteor) => {

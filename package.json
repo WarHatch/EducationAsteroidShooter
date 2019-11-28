@@ -10,6 +10,7 @@
     "build": "webpack --mode production && webpack-dev-server --mode production"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "file-loader": "^5.0.2",
     "phaser": "^3.21.0"
   },

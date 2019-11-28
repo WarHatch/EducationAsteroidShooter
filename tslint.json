@@ -4,7 +4,8 @@
     ],
     "jsRules": {},
     "rules": {
-        "only-arrow-functions": true
+        "only-arrow-functions": true,
+        "no-require-imports": true
     },
     "rulesDirectory": []
 }

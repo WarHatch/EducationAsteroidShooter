@@ -14,8 +14,13 @@ export const config: Phaser.Types.Core.GameConfig = {
       debug: false
     }
   },
+  dom: {
+    createContainer: true
+  },
   backgroundColor: "#101752"
 };
+
+// TODO: rename file
 
 export class Game extends Phaser.Game {
   constructor(config: Phaser.Types.Core.GameConfig) {

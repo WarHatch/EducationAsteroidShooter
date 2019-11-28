@@ -3,7 +3,13 @@ import "phaser";
 export class Meteor extends Phaser.Physics.Arcade.Image {
   static imageKey = "meteor";
 
-  constructor(scene: Phaser.Scene, x: number, y: number, onClickCallback: VoidFunction) {
+  constructor(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    meteorHTML: string,
+    onClickCallback: VoidFunction,
+  ) {
     super(scene, x, y, Meteor.imageKey);
 
     scene.add.existing(this);
