@@ -11,7 +11,7 @@ export class GameScene extends Phaser.Scene {
   meteorsFallen: number;
   city: Phaser.Physics.Arcade.StaticGroup;
   info: Phaser.GameObjects.Text;
-  meteorGameData: IGameUnitDataSet;
+  meteorGameData: IGameUnitDataSet<IClickableGameElement>;
 
   constructor() {
     super({
@@ -43,6 +43,12 @@ export class GameScene extends Phaser.Scene {
     this.city.refresh();
     this.info = this.add.text(10, 10, 'sample text',
       { font: '24px Arial Bold', fill: '#FBFBAC' });
+
+    const pulledHTML = this.meteorGameData.gameElements[0].html;
+    const pulledClickFunc = this.meteorGameData.gameElements[0].onClick;
+    const domElement = this.add.dom(420, 60).createFromHTML(pulledHTML);
+    domElement.addListener('click');
+    domElement.on('click', pulledClickFunc);
   }
 
   update(time: number): void {
@@ -61,9 +67,10 @@ export class GameScene extends Phaser.Scene {
     const x = Phaser.Math.Between(25, config.width - 25);
     const y = 26;
     const destroyDelay = 200;
-    const meteorHTML = this.meteorGameData.gameElements[0].html; // TODO: needs rework
+    const pulledHTML = this.meteorGameData.gameElements[0].html; 
+
     const meteor = new Meteor(
-      this, x, y, meteorHTML,
+      this, x, y, pulledHTML,
       () => {
         this.meteorsCaught += 1;
         this.time.delayedCall(destroyDelay, (m: Meteor) => {
