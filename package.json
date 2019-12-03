@@ -1,7 +1,7 @@
 {
   "name": "education_asteroid_shooter",
   "version": "1.0.0",
-  "main": "src/index.ts",
+  "main": "src/game.ts",
   "repository": "https://github.com/WarHatch/EducationAsteroidShooter",
   "author": "Karolis Staskevičius",
   "license": "MIT",

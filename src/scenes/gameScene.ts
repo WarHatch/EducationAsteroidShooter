@@ -1,6 +1,6 @@
 import "phaser";
 
-import { config } from "../index";
+import { config } from "../game";
 import { Meteor } from "../prefabs/meteor"
 import dataController from "../controllers/dataController";
 
@@ -64,7 +64,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   private spawnMeteor(): void {
-    // @ts-ignore
+    // @ts-ignore reason: handwritten number
     const x = Phaser.Math.Between(25, config.width - 25);
     const y = 26;
     const destroyDelay = 200;

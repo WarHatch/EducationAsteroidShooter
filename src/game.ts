@@ -20,8 +20,6 @@ export const config: Phaser.Types.Core.GameConfig = {
   backgroundColor: "#101752"
 };
 
-// TODO: rename file
-
 export class Game extends Phaser.Game {
   constructor(config: Phaser.Types.Core.GameConfig) {
     super(config);
