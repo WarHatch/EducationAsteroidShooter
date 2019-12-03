@@ -11,7 +11,7 @@ export class GameScene extends Phaser.Scene {
   meteorsFallen: number;
   city: Phaser.Physics.Arcade.StaticGroup;
   info: Phaser.GameObjects.Text;
-  meteorGameData: IGameUnitDataSet<IClickableGameElement>;
+  meteorGameData: IGameUnitDataSet<IGameElement>;
 
   constructor() {
     super({
@@ -46,10 +46,10 @@ export class GameScene extends Phaser.Scene {
       { font: '24px Arial Bold', fill: '#FBFBAC' });
 
     const pulledHTML = this.meteorGameData.gameElements[0].html;
-    const pulledClickFunc = this.meteorGameData.gameElements[0].onClick;
+    // const pulledClickFunc = this.meteorGameData.gameElements[0].onClick;
     const domElement = this.add.dom(420, 60).createFromHTML(pulledHTML);
-    domElement.addListener('click');
-    domElement.on('click', pulledClickFunc);
+    // domElement.addListener('click');
+    // domElement.on('click', pulledClickFunc);
   }
 
   update(time: number): void {
