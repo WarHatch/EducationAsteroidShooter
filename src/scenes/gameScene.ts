@@ -24,16 +24,17 @@ export class GameScene extends Phaser.Scene {
     this.lastMeteorTime = 0;
     this.meteorsCaught = 0;
     this.meteorsFallen = 0;
+
     this.meteorGameData = await dataController.getExampleDataUnit();
   }
 
-  preload(): void {
+  async preload() {
     this.load.path = "assets";
     this.load.image("city", "/sprites/city.png");
     this.load.image("meteor", "/sprites/meteor.png");
   }
 
-  create(): void {
+  create() {
     this.city = this.physics.add.staticGroup({
       key: 'city',
       frameQuantity: 2

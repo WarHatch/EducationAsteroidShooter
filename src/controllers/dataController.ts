@@ -14,5 +14,5 @@ const getExampleDataUnit = async (): Promise<IGameUnitDataSet<IClickableGameElem
 }
 
 export default {
-  getExampleDataUnit
+  getExampleDataUnit,
 }
