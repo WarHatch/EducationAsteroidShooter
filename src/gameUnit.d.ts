@@ -3,11 +3,6 @@ interface IGameElement {
   html: string,
 }
 
-interface IClickableGameElement extends IGameElement {
-  onClick: VoidFunction
-}
-
 interface IGameUnitDataSet<T extends IGameElement> {
   gameElements: Array<T>,
-  css: any, //{ [className: string]: string },
 } 

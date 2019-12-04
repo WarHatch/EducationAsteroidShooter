@@ -7,7 +7,7 @@ export class Meteor extends Phaser.Physics.Arcade.Image {
     scene: Phaser.Scene,
     x: number,
     y: number,
-    meteorHTML: string, // TODO: needs rework
+    // meteorHTML: string, // TODO: needs rework
     onClickCallback: VoidFunction,
   ) {
     super(scene, x, y, Meteor.imageKey);
