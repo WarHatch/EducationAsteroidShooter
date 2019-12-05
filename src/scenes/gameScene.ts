@@ -49,6 +49,19 @@ export class GameScene extends Phaser.Scene {
     this.city.refresh();
     this.info = this.add.text(10, 10, 'sample text',
       { font: '24px Arial Bold', fill: '#FBFBAC' });
+
+    const customRect = this.add.rectangle(200, 100, 300, 100, 456666);
+    const customButton = customRect.setInteractive();
+    const data = JSON.stringify({
+      "data": { "clickedOn": "now" }
+    });
+    customButton.on('pointerdown', () => {
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "http://localhost:8090/gameSession/register/buttonClick", false);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.send(data)
+      console.log(data);
+    });
   }
 
   update(time: number): void {
