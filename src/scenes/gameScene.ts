@@ -2,7 +2,8 @@ import "phaser";
 
 import { config } from "../game";
 import { Meteor } from "../prefabs/meteor"
-import dataController from "../controllers/dataController";
+import dataController from "../elementControlModule/dataHandler";
+import callbackHandlers from "../elementControlModule/callbackHandlers";
 
 export class GameScene extends Phaser.Scene {
   delta: number;
@@ -52,16 +53,10 @@ export class GameScene extends Phaser.Scene {
 
     const customRect = this.add.rectangle(200, 100, 300, 100, 456666);
     const customButton = customRect.setInteractive();
-    const data = JSON.stringify({
-      "data": { "clickedOn": "now" }
-    });
-    customButton.on('pointerdown', () => {
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", "http://localhost:8090/gameSession/register/buttonClick", false);
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.send(data)
-      console.log(data);
-    });
+    const data = {
+      data: { clickedOn: "now" }
+    };
+    customButton.on('pointerdown', async () => callbackHandlers.exampleButtonCallback(data));
   }
 
   update(time: number): void {
