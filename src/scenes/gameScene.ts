@@ -2,8 +2,7 @@ import "phaser";
 
 import { config } from "../game";
 import { Meteor } from "../prefabs/meteor"
-import dataController from "../elementControlModule/dataHandler";
-import callbackHandlers from "../elementControlModule/callbackHandlers";
+import dataController from "../elementDataHandler";
 
 export class GameScene extends Phaser.Scene {
   delta: number;
@@ -50,13 +49,6 @@ export class GameScene extends Phaser.Scene {
     this.city.refresh();
     this.info = this.add.text(10, 10, 'sample text',
       { font: '24px Arial Bold', fill: '#FBFBAC' });
-
-    const customRect = this.add.rectangle(200, 100, 300, 100, 456666);
-    const customButton = customRect.setInteractive();
-    const data = {
-      data: { clickedOn: "now" }
-    };
-    customButton.on('pointerdown', async () => callbackHandlers.exampleButtonCallback(data));
   }
 
   update(time: number): void {
