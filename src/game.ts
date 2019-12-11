@@ -15,7 +15,8 @@ export const config: Phaser.Types.Core.GameConfig = {
     }
   },
   dom: {
-    createContainer: true
+    createContainer: true,
+    behindCanvas: false
   },
   backgroundColor: "#101752"
 };
