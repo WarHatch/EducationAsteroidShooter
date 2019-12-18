@@ -3,6 +3,7 @@ import "phaser";
 import { config } from "../game";
 import { Meteor } from "../prefabs/meteor"
 import dataController from "../elementDataHandler";
+import { IGameUnitDataSet } from "../elementDataHandler/data";
 
 export class GameScene extends Phaser.Scene {
   delta: number;
@@ -11,7 +12,7 @@ export class GameScene extends Phaser.Scene {
   meteorsFallen: number;
   city: Phaser.Physics.Arcade.StaticGroup;
   info: Phaser.GameObjects.Text;
-  meteorGameData: IGameUnitDataSet<IGameElement>;
+  meteorGameData: IGameUnitDataSet;
 
   constructor() {
     super({
@@ -26,11 +27,10 @@ export class GameScene extends Phaser.Scene {
     this.meteorsFallen = 0;
 
     this.meteorGameData = await dataController.getExampleDataUnit();
-    const pulledHTML = this.meteorGameData.gameElements[0].html;
-    const domElement = this.add.dom(420, 60).createFromHTML(pulledHTML);
-    console.log(pulledHTML);
-    // domElement.addListener('click');
-    // domElement.on('click', pulledClickFunc);
+    const correctElement = this.meteorGameData.gameElements.correctHTMLElements[0].html;
+    this.add.dom(420, 60).createFromHTML(correctElement);
+    const incorrectElement = this.meteorGameData.gameElements.incorrectHTMLElements[0].html;
+    this.add.dom(520, 30).createFromHTML(incorrectElement);
   }
 
   async preload() {
