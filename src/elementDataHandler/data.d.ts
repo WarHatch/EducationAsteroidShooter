@@ -6,5 +6,6 @@ export interface IGameUnitDataSet {
   gameElements: {
     correctHTMLElements: Array<IGameElement>;
     incorrectHTMLElements: Array<IGameElement>;
+    endSessionHTML: IGameElement,
   };
 }
