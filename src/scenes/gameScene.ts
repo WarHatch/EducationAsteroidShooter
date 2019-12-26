@@ -33,6 +33,8 @@ export class GameScene extends Phaser.Scene {
     this.add.dom(520, 30).createFromHTML(incorrectElement);
     const endSessionElement = this.meteorGameData.gameElements.endSessionHTML.html;
     this.add.dom(20, 600).createFromHTML(endSessionElement);
+    const sessionIdElement = this.meteorGameData.gameElements.sessionIdHTML.html;
+    this.add.dom(100, 40).createFromHTML(sessionIdElement);
   }
 
   async preload() {
