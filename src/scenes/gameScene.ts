@@ -22,10 +22,12 @@ export class GameScene extends Phaser.Scene {
 
   async init(params) {
     this.meteorGameData = await dataController.getExampleDataUnit();
-    const endSessionElement = this.meteorGameData.gameElements.endSessionHTML.html;
-    this.add.dom(120, 600).createFromHTML(endSessionElement);
+    const questionElement = this.meteorGameData.gameElements.questionHTML.html;
+    this.add.dom(600, 0).createFromHTML(questionElement);
     const sessionIdElement = this.meteorGameData.gameElements.sessionIdHTML.html;
     this.add.dom(100, 20).createFromHTML(sessionIdElement);
+    const endSessionElement = this.meteorGameData.gameElements.endSessionHTML.html;
+    this.add.dom(480, 20).createFromHTML(endSessionElement);
   }
 
   async preload() {

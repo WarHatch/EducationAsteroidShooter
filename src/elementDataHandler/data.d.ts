@@ -8,5 +8,6 @@ export interface IGameUnitDataSet {
     incorrectHTMLElements: Array<IGameElement>;
     endSessionHTML: IGameElement,
     sessionIdHTML: IGameElement,
+    questionHTML: IGameElement, 
   };
 }
