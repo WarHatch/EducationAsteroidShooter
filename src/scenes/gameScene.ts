@@ -1,7 +1,5 @@
 import "phaser";
 
-import { config } from "../game";
-import { Meteor } from "../prefabs/meteor"
 import dataController from "../elementDataHandler";
 import { IGameUnitDataSet } from "../elementDataHandler/data";
 
@@ -23,7 +21,7 @@ export class GameScene extends Phaser.Scene {
   async init(params) {
     this.meteorGameData = await dataController.getExampleDataUnit();
     const questionElement = this.meteorGameData.gameElements.questionHTML.html;
-    this.add.dom(600, 0).createFromHTML(questionElement);
+    this.add.dom(724, 0).createFromHTML(questionElement);
     const sessionIdElement = this.meteorGameData.gameElements.sessionIdHTML.html;
     this.add.dom(100, 20).createFromHTML(sessionIdElement);
     const endSessionElement = this.meteorGameData.gameElements.endSessionHTML.html;
@@ -37,8 +35,8 @@ export class GameScene extends Phaser.Scene {
 
   create() {
     this.city = this.physics.add.staticGroup({
+      frameQuantity: 2,
       key: 'city',
-      frameQuantity: 2
     });
     Phaser.Actions.PlaceOnLine(this.city.getChildren(),
       new Phaser.Geom.Line(245, 758, 1260, 758));
