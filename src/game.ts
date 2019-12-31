@@ -3,22 +3,24 @@ import "phaser";
 import { GameScene } from "./scenes/gameScene"
 
 export const config: Phaser.Types.Core.GameConfig = {
-  title: "Education Asteroid Shooter",
-  width: 1024,
-  height: 768,
   parent: "game",
   scene: [GameScene],
+  title: "Education Asteroid Shooter",
+
+  height: 768,
+  width: 1024,
+
+  backgroundColor: "#101752",
+  dom: {
+    behindCanvas: false,
+    createContainer: true,
+  },
   physics: {
-    default: "arcade",
     arcade: {
       debug: false
-    }
+    },
+    default: "arcade",
   },
-  dom: {
-    createContainer: true,
-    behindCanvas: false
-  },
-  backgroundColor: "#101752"
 };
 
 export class Game extends Phaser.Game {

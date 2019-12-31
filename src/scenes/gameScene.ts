@@ -9,6 +9,7 @@ export class GameScene extends Phaser.Scene {
   meteorsCaught: number;
   meteorsFallen: number;
   city: Phaser.Physics.Arcade.StaticGroup;
+  shield: Phaser.GameObjects.Sprite;
   info: Phaser.GameObjects.Text;
   meteorGameData: IGameUnitDataSet;
 
@@ -31,6 +32,7 @@ export class GameScene extends Phaser.Scene {
   async preload() {
     this.load.path = "assets";
     this.load.image("city", "/sprites/city.png");
+    this.load.image("shield", "/sprites/shield_line.png");
   }
 
   create() {
@@ -41,6 +43,9 @@ export class GameScene extends Phaser.Scene {
     Phaser.Actions.PlaceOnLine(this.city.getChildren(),
       new Phaser.Geom.Line(245, 758, 1260, 758));
     this.city.refresh();
+
+    this.shield = this.add.sprite(512, 640, "shield");
+
     // this.info = this.add.text(10, 10, 'sample text',
     //   { font: '24px Arial Bold', fill: '#FBFBAC' });
   }
