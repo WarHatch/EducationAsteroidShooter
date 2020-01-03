@@ -41,11 +41,6 @@ export class GameScene extends Phaser.Scene {
     Phaser.Actions.PlaceOnLine(this.city.getChildren(),
       new Phaser.Geom.Line(245, 758, 1260, 758));
     this.city.refresh();
-
-    this.shield = this.add.sprite(512, 640, "shield");
-
-    // this.info = this.add.text(10, 10, 'sample text',
-    //   { font: '24px Arial Bold', fill: '#FBFBAC' });
   }
 
   update(time: number): void {
