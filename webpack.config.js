@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/game.ts',
+  entry: './src/index.tsx',
   module: {
     rules: [
       {
@@ -21,7 +21,7 @@ module.exports = {
   devServer: {
     contentBase: path.resolve(__dirname, "./"),
     publicPath: "/dist/",
-    // port: 8080,
+    historyApiFallback: true,
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js']

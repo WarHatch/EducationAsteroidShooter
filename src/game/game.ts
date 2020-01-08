@@ -1,10 +1,10 @@
 import "phaser";
 
-import { GameScene } from "./scenes/gameScene"
+import { AsteroidGameScene } from "./scenes/asteroidGameScene"
 
 export const config: Phaser.Types.Core.GameConfig = {
   parent: "game",
-  scene: [GameScene],
+  scene: [AsteroidGameScene],
   title: "Education Asteroid Shooter",
 
   height: 768,

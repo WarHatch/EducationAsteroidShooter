@@ -1,9 +1,9 @@
 import "phaser";
 
-import dataController from "../elementDataHandler";
-import { IGameUnitDataSet } from "../elementDataHandler/data";
+import dataController from "../../dataHandler";
+import { IGameUnitDataSet } from "../../dataHandler/data";
 
-export class GameScene extends Phaser.Scene {
+export class AsteroidGameScene extends Phaser.Scene {
   delta: number;
   lastMeteorTime: number;
   meteorsCaught: number;
@@ -15,7 +15,7 @@ export class GameScene extends Phaser.Scene {
 
   constructor() {
     super({
-      key: "GameScene"
+      key: "AsteroidGameScene"
     });
   }
 
