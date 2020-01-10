@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import { Alert } from "react-bootstrap";
 import datahandler from "../dataHandler";
+import { IGlobalState } from '..';
 
-import { v1 } from "uuid";
+type P = {
+  changeGlobalState: (newState: Partial<IGlobalState>) => void,
+}
 
 type S = {
   error: Error,
@@ -11,7 +14,7 @@ type S = {
   studentInput: string,
 }
 
-class Page extends Component<{}, S> {
+class Page extends Component<P, S> {
   constructor(props) {
     super(props);
 
@@ -39,6 +42,8 @@ class Page extends Component<{}, S> {
   }
 
   async handleSubmit(event) {
+    const { changeGlobalState } = this.props;
+
     event.preventDefault();
 
     const {
@@ -57,7 +62,9 @@ class Page extends Component<{}, S> {
 
         sessionConfigs: [placeholderDefaultConfigData]
       })
-      // TODO: send newSessionData to the game page
+      changeGlobalState({
+        gameSessionData: newSessionData,
+      });
       // @ts-ignore WithRouterStatics
       this.props.history.push(`/asteroidGame`);
     } catch (error) {

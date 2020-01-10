@@ -17,13 +17,24 @@ export interface ICreateNewSession {
   sessionConfigs: ISessionConfig[],
 }
 
-const createNewSession = async (createNewLessonPayload: ICreateNewSession): Promise<any> => {
+export interface ISession extends ICreateNewSession {
+  sessionId: string,
+
+  createdAt: Date,
+  finishedAt: Date,
+}
+
+const createNewSession = async (createNewLessonPayload: ICreateNewSession): Promise<ISession> => {
   const { lessonId } = createNewLessonPayload;
   const machineRegisteredPayload = {
     ...createNewLessonPayload,
     sessionId: v1(),
   };
-  const res = await axios.post(`http://localhost:8090/lesson/${lessonId}/session/register`, machineRegisteredPayload);
+
+  const res = await axios.post<ISession>(
+    `http://localhost:8090/lesson/${lessonId}/session/register`,
+    machineRegisteredPayload
+  );
   const { data } = res;
   return data;
 }

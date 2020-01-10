@@ -2,33 +2,29 @@ import "phaser";
 
 import { AsteroidGameScene } from "./scenes/asteroidGameScene"
 
-export const config: Phaser.Types.Core.GameConfig = {
-  parent: "game",
-  scene: [AsteroidGameScene],
-  title: "Education Asteroid Shooter",
+export default class Game extends Phaser.Game {
+  static defaultConfig: Phaser.Types.Core.GameConfig = {
+    parent: "game",
+    scene: [AsteroidGameScene],
+    title: "Education Asteroid Shooter",
 
-  height: 768,
-  width: 1024,
+    height: 768,
+    width: 1024,
 
-  backgroundColor: "#101752",
-  dom: {
-    behindCanvas: false,
-    createContainer: true,
-  },
-  physics: {
-    arcade: {
-      debug: false
+    backgroundColor: "#101752",
+    dom: {
+      behindCanvas: false,
+      createContainer: true,
     },
-    default: "arcade",
-  },
-};
+    physics: {
+      arcade: {
+        debug: false
+      },
+      default: "arcade",
+    }
+  }
 
-export class Game extends Phaser.Game {
-  constructor(config: Phaser.Types.Core.GameConfig) {
-    super(config);
+  constructor() {
+    super(Game.defaultConfig);
   }
 }
-
-window.onload = () => {
-  new Game(config);
-};
