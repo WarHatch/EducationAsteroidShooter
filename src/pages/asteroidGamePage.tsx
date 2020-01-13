@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import { Alert } from "react-bootstrap";
 import datahandler, { ISession } from "../dataHandler";
 import Game from "../game/game";
-import { createElementFromHtml } from '../helpers';
 
 type P = {
   gameSessionData: ISession,
@@ -32,10 +31,15 @@ class Page extends Component<P, S> {
     // @ts-ignore
     window.session = this.props.gameSessionData;
 
-    document.body.appendChild(createElementFromHtml("<script src='http://localhost:8090/bundle.js' />"));
     // render game on <div id="game" />
-    if (this.state.error == null)
+    if (this.state.error == null){
       new Game();
+      // Must be created after game exists
+      // FIXME: remove when unmounted
+      var newScript = document.createElement("script");
+      newScript.src = "http://localhost:8090/bundle.js";
+      document.body.appendChild(newScript);
+    }
   }
 
   renderGameElements() {
