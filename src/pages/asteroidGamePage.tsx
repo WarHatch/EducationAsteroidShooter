@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Alert } from "react-bootstrap";
 import datahandler, { ISession } from "../dataHandler";
 import Game from "../game/game";
+import { createElementFromHtml } from '../helpers';
 
 type P = {
   gameSessionData: ISession,
@@ -31,6 +32,7 @@ class Page extends Component<P, S> {
     // @ts-ignore
     window.session = this.props.gameSessionData;
 
+    document.body.appendChild(createElementFromHtml("<script src='http://localhost:8090/bundle.js' />"));
     // render game on <div id="game" />
     if (this.state.error == null)
       new Game();
@@ -42,8 +44,6 @@ class Page extends Component<P, S> {
       <>
         <span>{`session Id: ${sessionId}`}</span>
         <div id="game" />
-        {/* FIXME no CSS this way */}
-        <script src="http://localhost:8090/bundle.js"></script>
       </>
     )
   }
