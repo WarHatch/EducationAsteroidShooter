@@ -16,26 +16,56 @@ class Page extends Component<P, S> {
   constructor(props) {
     super(props);
 
+    let error = null;
+    if (Boolean(this.props.gameSessionData) === false) {
+      error = new Error("Game session was not started")
+    }
+    
     this.state = {
-      error: null,
+      error,
     };
   }
 
   componentDidMount() {
-    // create game
-    new Game();
+    // set global session var
+    // @ts-ignore
+    window.session = this.props.gameSessionData;
+
+    // render game on <div id="game" />
+    if (this.state.error == null)
+      new Game();
+  }
+
+  renderGameElements() {
+    const { sessionId } = this.props.gameSessionData;
+    return (
+      <>
+        <span>{`session Id: ${sessionId}`}</span>
+        <div id="game" />
+        {/* FIXME no CSS this way */}
+        <script src="http://localhost:8090/bundle.js"></script>
+      </>
+    )
+  }
+
+  renderAlert() {
+    const { error } = this.state;
+    return (
+      <>
+        <Alert variant="danger">{error.message || JSON.stringify(error)}</Alert>
+      </>
+    )
   }
 
   render() {
     const { error } = this.state
-    const { sessionId } = this.props.gameSessionData;
 
     return (
       <div className="page">
-        {error &&
-          <Alert variant="danger">{JSON.stringify(error)}</Alert>
+        {error ?
+          this.renderAlert() :
+          this.renderGameElements()
         }
-        <span>{`session Id: ${sessionId}`}</span>
       </div>
     )
   }

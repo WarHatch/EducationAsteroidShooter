@@ -30,7 +30,7 @@ export class AsteroidGameScene extends Phaser.Scene {
   async preload() {
     this.load.path = "assets";
     this.load.image("city", "/sprites/city.png");
-    this.load.image("shield", "/sprites/shield_line.png");
+    // this.load.image("shield", "/sprites/shield_line.png"); TODO: mount on server side
   }
 
   create() {

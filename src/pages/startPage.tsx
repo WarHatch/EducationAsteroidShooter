@@ -23,8 +23,8 @@ class Page extends Component<P, S> {
     this.state = {
       error: null,
 
-      lessonIdInput: "",
-      studentInput: "",
+      lessonIdInput: "boot",
+      studentInput: "test",
     };
   }
 

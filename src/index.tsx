@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Link,
 } from "react-router-dom";
 import { render } from 'react-dom'
 
@@ -39,6 +40,7 @@ class App extends React.Component<{}, IGlobalState> {
   render() {
     return (
       <Router>
+        <Link to={"/"}> Home </Link>
         <Switch>
           <Route exact path="/">
             <StartPage changeGlobalState={this.changeGlobalState} />
