@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import { Alert } from "react-bootstrap";
-import datahandler, { ISession } from "../dataHandler";
+import { ISession } from "../dataHandler";
 import Game from "../game/game";
 
 type P = {
@@ -45,11 +45,16 @@ class Page extends Component<P, S> {
   }
 
   componentWillUnmount() {
-    // @ts-ignore
-    window.session = undefined;
+    // window.session = undefined;
 
-    const scriptElement = this.state.spawnedScript;
-    scriptElement.parentElement.removeChild(scriptElement);
+    // const scriptElement = this.state.spawnedScript;
+    // try {
+    //   scriptElement.parentElement.removeChild(scriptElement);
+    // } catch (error) {
+    //   console.warn("Unable to remove script element");
+    // }
+    // Forces a reload. Maybe there's a better way to stop the scripts?
+    window.stop();
   }
 
   renderGameElements() {
