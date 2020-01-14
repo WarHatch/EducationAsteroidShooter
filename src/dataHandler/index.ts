@@ -26,9 +26,16 @@ export interface ISession extends ICreateNewSession {
 
 const createNewSession = async (createNewLessonPayload: ICreateNewSession): Promise<ISession> => {
   const { lessonId } = createNewLessonPayload;
+  // TODO: nested create in sequelize
+  const sessionId = v1();
   const machineRegisteredPayload = {
     ...createNewLessonPayload,
-    sessionId: v1(),
+    sessionId,
+
+    sessionConfigs: {
+      ...createNewLessonPayload.sessionConfigs[0],
+      sessionId,
+    }
   };
 
   const res = await axios.post<ISession>(
