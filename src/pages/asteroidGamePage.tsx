@@ -10,6 +10,7 @@ type P = {
 
 type S = {
   error: Error,
+  spawnedScript: HTMLScriptElement,
 }
 
 class Page extends Component<P, S> {
@@ -20,9 +21,10 @@ class Page extends Component<P, S> {
     if (Boolean(this.props.gameSessionData) === false) {
       error = new Error("Game session was not started")
     }
-    
+
     this.state = {
       error,
+      spawnedScript: undefined,
     };
   }
 
@@ -31,15 +33,23 @@ class Page extends Component<P, S> {
     // @ts-ignore
     window.session = this.props.gameSessionData;
 
-    // render game on <div id="game" />
-    if (this.state.error == null){
+    if (this.state.error == null) {
+      // render game on <div id="game" />
       new Game();
       // Must be created after game exists
-      // FIXME: remove when unmounted
       var newScript = document.createElement("script");
       newScript.src = "http://localhost:8090/bundle.js";
-      document.body.appendChild(newScript);
+      const spawnedScript = document.body.appendChild(newScript);
+      this.setState({ spawnedScript })
     }
+  }
+
+  componentWillUnmount() {
+    // @ts-ignore
+    window.session = undefined;
+
+    const scriptElement = this.state.spawnedScript;
+    scriptElement.parentElement.removeChild(scriptElement);
   }
 
   renderGameElements() {
