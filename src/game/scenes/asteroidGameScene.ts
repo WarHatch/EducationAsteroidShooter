@@ -23,8 +23,6 @@ export class AsteroidGameScene extends Phaser.Scene {
     this.meteorGameData = await dataController.getExampleDataUnit();
     const questionElement = this.meteorGameData.gameElements.questionHTML.html;
     this.add.dom(724, 0).createFromHTML(questionElement);
-    const endSessionElement = this.meteorGameData.gameElements.endSessionHTML.html;
-    this.add.dom(480, 20).createFromHTML(endSessionElement);
   }
 
   async preload() {

@@ -43,6 +43,9 @@ const createNewSession = async (createNewLessonPayload: ICreateNewSession): Prom
     machineRegisteredPayload
   );
   const { data } = res;
+  if (data === null) throw new Error("createLesson returned null");
+  // @ts-ignore
+  if (data.error !== undefined) throw data;
   return data;
 }
 

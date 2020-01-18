@@ -53,7 +53,7 @@ class Page extends Component<P, S> {
     // } catch (error) {
     //   console.warn("Unable to remove script element");
     // }
-    // Forces a reload. Maybe there's a better way to stop the scripts?
+    // Forces a reload. // TODO: Maybe there's a better way to stop the scripts?
     window.stop();
   }
 
@@ -61,7 +61,7 @@ class Page extends Component<P, S> {
     const { sessionId } = this.props.gameSessionData;
     return (
       <>
-        <span>{`session Id: ${sessionId}`}</span>
+        {/* <span>{`session Id: ${sessionId}`}</span> */}
         <div id="game" />
       </>
     )
