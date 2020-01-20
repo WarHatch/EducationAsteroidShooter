@@ -52,15 +52,9 @@ class Page extends Component<P, S> {
     } = this.state;
 
     try {
-      const placeholderDefaultConfigData = {
-        asteroidSecondsToCrash: 12,
-        asteroidSpawnPerMinute: 20,
-      }
       const newSessionData = await datahandler.createNewSession({
         lessonId: lessonIdInput,
         studentName: studentInput,
-
-        sessionConfigs: [placeholderDefaultConfigData]
       })
       changeGlobalState({
         gameSessionData: newSessionData,

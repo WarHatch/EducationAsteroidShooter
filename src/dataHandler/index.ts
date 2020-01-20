@@ -13,8 +13,6 @@ export interface ISessionConfig {
 export interface ICreateNewSession {
   studentName: string,
   lessonId: string,
-
-  sessionConfigs: ISessionConfig[],
 }
 
 export interface ISession extends ICreateNewSession {
@@ -31,11 +29,6 @@ const createNewSession = async (createNewLessonPayload: ICreateNewSession): Prom
   const machineRegisteredPayload = {
     ...createNewLessonPayload,
     sessionId,
-
-    sessionConfigs: {
-      ...createNewLessonPayload.sessionConfigs[0],
-      sessionId,
-    }
   };
 
   const res = await axios.post<ISession>(
