@@ -11,7 +11,7 @@ export interface ISessionConfig {
 }
 
 export interface ICreateNewSession {
-  studentName: string,
+  playerName: string,
   lessonId: string,
 }
 

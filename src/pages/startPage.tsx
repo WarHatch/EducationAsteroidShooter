@@ -54,7 +54,7 @@ class Page extends Component<P, S> {
     try {
       const newSessionData = await datahandler.createNewSession({
         lessonId: lessonIdInput,
-        studentName: studentInput,
+        playerName: studentInput,
       })
       changeGlobalState({
         gameSessionData: newSessionData,
