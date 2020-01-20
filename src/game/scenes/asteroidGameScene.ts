@@ -6,13 +6,7 @@ import { IGameUnitDataSet } from "../../dataHandler/data";
 export class AsteroidGameScene extends Phaser.Scene {
   static CITYKEY = "city";
 
-  delta: number;
-  lastMeteorTime: number;
-  meteorsCaught: number;
-  meteorsFallen: number;
   city: Phaser.Physics.Arcade.StaticGroup;
-  shield: Phaser.GameObjects.Sprite;
-  info: Phaser.GameObjects.Text;
   meteorGameData: IGameUnitDataSet;
 
   constructor() {
@@ -25,7 +19,8 @@ export class AsteroidGameScene extends Phaser.Scene {
     this.meteorGameData = await dataController.getExampleDataUnit();
     const questionElement = this.meteorGameData.gameElements.questionHTML.html;
     this.add.dom(0, 0).createFromHTML(questionElement);
-    // TODO: would make sense to add endGameSession button from here if I'm keeping phaser integration
+    const endSessionButtonElement = this.meteorGameData.gameElements.endSessionHTML.html;
+    this.add.dom(10, 10).createFromHTML(endSessionButtonElement);
   }
 
   async preload() {
