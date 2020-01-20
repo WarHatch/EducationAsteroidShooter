@@ -8,9 +8,6 @@ export default class Game extends Phaser.Game {
     scene: [AsteroidGameScene],
     title: "Education Asteroid Shooter",
 
-    height: 768,
-    width: 1024,
-
     backgroundColor: "#101752",
     dom: {
       behindCanvas: false,
@@ -24,7 +21,11 @@ export default class Game extends Phaser.Game {
     }
   }
 
-  constructor() {
-    super(Game.defaultConfig);
+  constructor(canvasConfig: ICanvasConfig) {
+    const { defaultConfig } = Game;
+    super({
+      ...defaultConfig,
+      ...canvasConfig,
+    });
   }
 }

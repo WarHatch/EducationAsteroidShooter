@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import { Alert } from "react-bootstrap";
 import { ISession } from "../dataHandler";
+import dataHandler from "../dataHandler";
 import Game from "../game/game";
 
 type P = {
@@ -28,19 +29,25 @@ class Page extends Component<P, S> {
     };
   }
 
-  componentDidMount() {
-    // set global session var
-    // @ts-ignore
-    window.session = this.props.gameSessionData;
+  async componentDidMount() {
+    try {
+      const canvasConfig = await dataHandler.getCanvasConfig(window.innerWidth);
+      console.log(canvasConfig);
 
-    if (this.state.error == null) {
-      // render game on <div id="game" />
-      new Game();
-      // Must be created after game exists
-      var newScript = document.createElement("script");
-      newScript.src = "http://localhost:8090/bundle.js";
-      const spawnedScript = document.body.appendChild(newScript);
-      this.setState({ spawnedScript })
+      // set global sessionData for server script to use
+      window.session = this.props.gameSessionData;
+
+      if (this.state.error == null) {
+        // render game on <div id="game" />
+        new Game(canvasConfig);
+        // Must be created after game exists
+        var newScript = document.createElement("script");
+        newScript.src = "http://localhost:8090/bundle.js";
+        const spawnedScript = document.body.appendChild(newScript);
+        this.setState({ spawnedScript })
+      }
+    } catch (error) {
+      this.setState({ error })
     }
   }
 
@@ -48,11 +55,6 @@ class Page extends Component<P, S> {
     // window.session = undefined;
 
     // const scriptElement = this.state.spawnedScript;
-    // try {
-    //   scriptElement.parentElement.removeChild(scriptElement);
-    // } catch (error) {
-    //   console.warn("Unable to remove script element");
-    // }
     // Forces a reload. // TODO: Maybe there's a better way to stop the scripts?
     window.stop();
   }
@@ -62,6 +64,7 @@ class Page extends Component<P, S> {
     return (
       <>
         {/* <span>{`session Id: ${sessionId}`}</span> */}
+        {/* <span>{`game config: ${sessionConfig}`}</span> */}
         <div id="game" />
       </>
     )

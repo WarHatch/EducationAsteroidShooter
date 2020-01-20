@@ -44,18 +44,28 @@ const createNewSession = async (createNewLessonPayload: ICreateNewSession): Prom
   );
   const { data } = res;
   if (data === null) throw new Error("createLesson returned null");
-  // @ts-ignore
+  // @ts-ignore error handling
   if (data.error !== undefined) throw data;
   return data;
 }
 
 const getExampleDataUnit = async (): Promise<IGameUnitDataSet> => {
-  const res = await axios.get('http://localhost:8090/gameElements/dataSet');
+  const { innerWidth } = window;
+  const res = await axios.get(`http://localhost:8090/gameElements/dataSet/${innerWidth}`);
   const { data } = res;
+  return data;
+}
+
+const getCanvasConfig = async (windowWidth: number): Promise<ICanvasConfig> => {
+  const { data } = await axios.get<ICanvasConfig>(`http://localhost:8090/canvasConfig/${windowWidth}`);
+  if (data === null) throw new Error("getCanvasConfig returned null");
+  // @ts-ignore error handling
+  if (data.error !== undefined) throw data;
   return data;
 }
 
 export default {
   createNewSession,
+  getCanvasConfig,
   getExampleDataUnit,
 }

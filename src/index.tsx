@@ -11,6 +11,14 @@ import StartPage from "./pages/startPage";
 import AsteroidGamePage from "./pages/asteroidGamePage";
 import { ISession } from './dataHandler';
 
+// Define global parameters
+declare global {
+  interface Window {
+    session: ISession;
+    gameEnded: boolean;
+  }
+}
+
 export type IGlobalState = {
   error: Error,
   gameSessionData: ISession,

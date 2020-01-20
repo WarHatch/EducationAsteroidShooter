@@ -4,6 +4,8 @@ import dataController from "../../dataHandler";
 import { IGameUnitDataSet } from "../../dataHandler/data";
 
 export class AsteroidGameScene extends Phaser.Scene {
+  static CITYKEY = "city";
+
   delta: number;
   lastMeteorTime: number;
   meteorsCaught: number;
@@ -22,21 +24,28 @@ export class AsteroidGameScene extends Phaser.Scene {
   async init(params) {
     this.meteorGameData = await dataController.getExampleDataUnit();
     const questionElement = this.meteorGameData.gameElements.questionHTML.html;
-    this.add.dom(724, 0).createFromHTML(questionElement);
+    this.add.dom(0, 0).createFromHTML(questionElement);
+    // TODO: would make sense to add endGameSession button from here if I'm keeping phaser integration
   }
 
   async preload() {
     this.load.path = "assets";
-    this.load.image("city", "/sprites/city.png");
+    this.load.image(AsteroidGameScene.CITYKEY, "/sprites/city.png");
   }
 
   create() {
     this.city = this.physics.add.staticGroup({
-      frameQuantity: 2,
-      key: 'city',
+      frameQuantity: 4,
+      key: AsteroidGameScene.CITYKEY,
     });
-    Phaser.Actions.PlaceOnLine(this.city.getChildren(),
-      new Phaser.Geom.Line(245, 758, 1260, 758));
+    const { height: citySpriteHeight, width: citySpriteWidth } = this.game.textures.get(AsteroidGameScene.CITYKEY).source[0];
+    // "setY": ... - citySpriteHeight/2
+
+    const { height: canvasHeight, width: canvasWidth } = this.game.canvas;
+    Phaser.Actions.PlaceOnLine(
+      this.city.getChildren(),
+      new Phaser.Geom.Line(citySpriteWidth/2, canvasHeight, canvasWidth, canvasHeight)
+    );
     this.city.refresh();
   }
 
