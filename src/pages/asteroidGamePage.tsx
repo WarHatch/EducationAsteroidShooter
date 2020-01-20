@@ -4,6 +4,7 @@ import { Alert } from "react-bootstrap";
 import { ISession } from "../dataHandler";
 import dataHandler from "../dataHandler";
 import Game from "../game/game";
+import config from "../config"
 
 type P = {
   gameSessionData: ISession,
@@ -42,7 +43,7 @@ class Page extends Component<P, S> {
         new Game(canvasConfig);
         // Must be created after game exists
         var newScript = document.createElement("script");
-        newScript.src = "http://localhost:8090/bundle.js";
+        newScript.src = config.gameElementApiURL + "/bundle.js";
         const spawnedScript = document.body.appendChild(newScript);
         this.setState({ spawnedScript })
       }

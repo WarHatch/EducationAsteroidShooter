@@ -1,5 +1,6 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { v1 } from "uuid";
+import config from "../config"
 
 // interfaces
 import { IGameUnitDataSet } from "./data";
@@ -32,7 +33,7 @@ const createNewSession = async (createNewLessonPayload: ICreateNewSession): Prom
   };
 
   const res = await axios.post<ISession>(
-    `http://localhost:8090/lesson/${lessonId}/session/register`,
+    `${config.gameElementApiURL}/lesson/${lessonId}/session/register`,
     machineRegisteredPayload
   );
   const { data } = res;
@@ -44,13 +45,13 @@ const createNewSession = async (createNewLessonPayload: ICreateNewSession): Prom
 
 const getExampleDataUnit = async (): Promise<IGameUnitDataSet> => {
   const { innerWidth } = window;
-  const res = await axios.get(`http://localhost:8090/gameElements/dataSet/${innerWidth}`);
+  const res = await axios.get(`${config.gameElementApiURL}/gameElements/dataSet/${innerWidth}`);
   const { data } = res;
   return data;
 }
 
 const getCanvasConfig = async (windowWidth: number): Promise<ICanvasConfig> => {
-  const { data } = await axios.get<ICanvasConfig>(`http://localhost:8090/canvasConfig/${windowWidth}`);
+  const { data } = await axios.get<ICanvasConfig>(`${config.gameElementApiURL}/canvasConfig/${windowWidth}`);
   if (data === null) throw new Error("getCanvasConfig returned null");
   // @ts-ignore error handling
   if (data.error !== undefined) throw data;
