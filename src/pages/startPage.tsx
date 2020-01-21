@@ -80,7 +80,7 @@ class Page extends Component<P, S> {
           <input id="startFormSubmit" type="submit" value="Start!" />
         </form>
         {error &&
-          <Alert variant="danger">{JSON.stringify(error)}</Alert>
+          <Alert variant="danger">{error.message}</Alert>
         }
       </div>
     )
