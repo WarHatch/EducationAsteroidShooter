@@ -5,6 +5,7 @@ import { ISession } from "../dataHandler";
 import dataHandler from "../dataHandler";
 import Game from "../game/game";
 import config from "../config"
+import Axios from 'axios';
 
 type P = {
   gameSessionData: ISession,
@@ -13,6 +14,11 @@ type P = {
 type S = {
   error: Error,
   spawnedScript: HTMLScriptElement,
+}
+
+type IEndSessionData = {
+  sessionId: string,
+  finishedAt: Date,
 }
 
 class Page extends Component<P, S> {
@@ -29,6 +35,13 @@ class Page extends Component<P, S> {
       spawnedScript: undefined,
     };
   }
+
+  async endGame() {
+    window.gameEnded = true;
+    const { lessonId, sessionId } = this.props.gameSessionData;
+    const payload: IEndSessionData = { sessionId, finishedAt: new Date() };
+    Axios.post(`${config.gameElementApiURL}/lesson/${lessonId}/session/register/end`, payload);
+  } 
 
   async componentDidMount() {
     try {
@@ -53,15 +66,13 @@ class Page extends Component<P, S> {
   }
 
   componentWillUnmount() {
-    // window.session = undefined;
-
-    // const scriptElement = this.state.spawnedScript;
-    // Forces a reload. // TODO: Maybe there's a better way to stop the scripts?
+    this.endGame();
+    // FIXME: Since production build refuses to reload on window.stop() some global props have to be reset manually
+    window.session = undefined;
     window.stop();
   }
 
   renderGameElements() {
-    const { sessionId } = this.props.gameSessionData;
     return (
       <>
         {/* <span>{`session Id: ${sessionId}`}</span> */}
@@ -75,7 +86,7 @@ class Page extends Component<P, S> {
     const { error } = this.state;
     return (
       <>
-        <Alert variant="danger">{error.message || JSON.stringify(error)}</Alert>
+        <Alert variant="danger">{error.toString()}</Alert>
       </>
     )
   }
