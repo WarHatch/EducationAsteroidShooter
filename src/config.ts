@@ -1,5 +1,5 @@
 const devConfig = {
-  gameElementApiURL: "http://localhost:8090"
+  gameElementApiURL: "http://localhost:8090",
 }
 
 const productionConfig = {
@@ -7,8 +7,11 @@ const productionConfig = {
 }
 
 const configByEnv = () => {
-  if (process.env.NODE_ENV === "production")
-    return productionConfig;
+  if (process.env.NODE_ENV === "production") {
+    return {
+      ...productionConfig,
+    }
+  }
   else return devConfig;
 };
 

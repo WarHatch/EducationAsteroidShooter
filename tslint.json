@@ -5,10 +5,7 @@
     "jsRules": {},
     "rules": {
         "only-arrow-functions": true,
-        "no-require-imports": true,
-        "object-literal-sort-keys": [
-            true
-        ]
+        "no-require-imports": true
     },
     "rulesDirectory": []
 }
