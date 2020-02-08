@@ -24,7 +24,7 @@ class Page extends Component<P, S> {
       error: null,
 
       lessonIdInput: "chemistry",
-      studentInput: "Jon Doe",
+      studentInput: "",
     };
   }
 
