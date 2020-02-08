@@ -41,7 +41,7 @@ class Page extends Component<P, S> {
     const { lessonId, sessionId } = this.props.gameSessionData;
     const payload: IEndSessionData = { sessionId, finishedAt: new Date() };
     Axios.post(`${config.gameElementApiURL}/lesson/${lessonId}/session/register/end`, payload);
-  } 
+  }
 
   async componentDidMount() {
     try {
@@ -54,11 +54,12 @@ class Page extends Component<P, S> {
       if (this.state.error == null) {
         // render game on <div id="game" />
         new Game(canvasConfig);
-        // Must be created after game exists
+        // Must be created after Phaser created HTMLcanvas
         var newScript = document.createElement("script");
         newScript.src = config.gameElementApiURL + "/bundle.js";
         const spawnedScript = document.body.appendChild(newScript);
         this.setState({ spawnedScript })
+        // FIXME: should load scene here (so optional elements receive CSS)
       }
     } catch (error) {
       this.setState({ error })
