@@ -68,8 +68,9 @@ class Page extends Component<P, S> {
 
   componentWillUnmount() {
     this.endGame();
-    // FIXME: Since production build refuses to reload on window.stop() some global props have to be reset manually
+    // Reset global props set with componentDidMount
     window.session = undefined;
+    // Reload window to ensure all processes are stopped
     window.stop();
   }
 

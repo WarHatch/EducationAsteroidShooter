@@ -3,5 +3,3 @@ declare interface ICanvasConfig {
   width: number;
   questionWidth: number;
 }
-
-// TODO: define API error response

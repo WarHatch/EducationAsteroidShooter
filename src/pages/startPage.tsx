@@ -23,7 +23,7 @@ class Page extends Component<P, S> {
     this.state = {
       error: null,
 
-      lessonIdInput: "chemistry",
+      lessonIdInput: "",
       studentInput: "",
     };
   }
@@ -62,8 +62,9 @@ class Page extends Component<P, S> {
       // @ts-ignore WithRouterStatics
       this.props.history.push(`/asteroidGame`);
     } catch (error) {
-      this.setState({ error });
-      console.error(error)
+      // TODO: monkeypatched payload message extraction
+      this.setState({ error: error.response.data });
+      console.error({...error})
     }
   }
 
@@ -80,7 +81,7 @@ class Page extends Component<P, S> {
           <input id="startFormSubmit" type="submit" value="Start!" />
         </form>
         {error &&
-          <Alert variant="danger">{error.message}</Alert>
+          <Alert variant="danger">{error}</Alert>
         }
       </div>
     )
