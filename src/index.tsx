@@ -1,15 +1,15 @@
-import React from 'react'
+import React from "react"
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
 } from "react-router-dom";
-import { render } from 'react-dom'
+import { render } from "react-dom"
 
 import StartPage from "./pages/startPage";
 import AsteroidGamePage from "./pages/asteroidGamePage";
-import { ISession } from './dataHandler';
+import { ISession } from "./dataHandler";
 
 // Define global parameters
 declare global {
@@ -56,7 +56,7 @@ class App extends React.Component<{}, IGlobalState> {
           <Route path="/asteroidGame">
             <AsteroidGamePage gameSessionData={this.state.gameSessionData}/>
           </Route>
-          <Route>{'Incorrect URL'}</Route>
+          <Route>{"Incorrect URL"}</Route>
         </Switch>
       </Router>
     );
@@ -65,5 +65,5 @@ class App extends React.Component<{}, IGlobalState> {
 
 render(
   <App />,
-  document.getElementById('app')
+  document.getElementById("app")
 );

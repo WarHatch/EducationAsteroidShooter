@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom';
+import React, { Component } from "react"
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import datahandler from "../dataHandler";
-import { IGlobalState } from '..';
+import { IGlobalState } from "..";
 
-type P = {
+interface P extends RouteComponentProps {
   changeGlobalState: (newState: Partial<IGlobalState>) => void,
 }
 
-type S = {
+interface S {
   error: Error,
   lessonIdInput: string,
   studentInput: string,
@@ -30,7 +30,7 @@ class Page extends Component<P, S> {
 
   handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { target } = event;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     const { name } = target;
 
     this.setState((prevState) => {
@@ -59,7 +59,6 @@ class Page extends Component<P, S> {
       changeGlobalState({
         gameSessionData: newSessionData,
       });
-      // @ts-ignore WithRouterStatics
       this.props.history.push(`/asteroidGame`);
     } catch (error) {
       // TODO: monkeypatched payload message extraction

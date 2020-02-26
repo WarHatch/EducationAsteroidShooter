@@ -5,6 +5,8 @@ import config from "../config"
 // interfaces
 import { IGameUnitDataSet } from "./data";
 
+// TODO: create an AxiosResponse<> interface which supports having error property (res.data.error)
+
 export interface ISessionConfig {
   asteroidSpawnPerMinute: number,
   asteroidSecondsToCrash: number,

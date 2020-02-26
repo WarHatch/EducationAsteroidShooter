@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom';
+import React, { Component } from "react"
+import { withRouter } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import { ISession } from "../dataHandler";
 import dataHandler from "../dataHandler";
 import Game from "../game/game";
 import config from "../config"
-import Axios from 'axios';
+import Axios from "axios";
 
 type P = {
   gameSessionData: ISession,
