@@ -27,5 +27,7 @@ export default class Game extends Phaser.Game {
       ...defaultConfig,
       ...canvasConfig,
     });
+    // setting HTMLCanvas id to match eduGame server requirements
+    this.domContainer.id = "#htmlcanvas-edugame-script-0";
   }
 }
