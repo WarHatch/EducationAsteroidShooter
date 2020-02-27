@@ -14,7 +14,11 @@ import { ISession } from "./dataHandler";
 // Define global parameters
 declare global {
   interface Window {
-    session: ISession;
+    session?: ISession | null;
+    htmlCanvas: {
+      canvasWidth: number
+      canvasHeight: number
+    }
     gameEnded: boolean;
   }
 }

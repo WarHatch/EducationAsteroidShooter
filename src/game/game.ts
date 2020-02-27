@@ -1,6 +1,7 @@
 import "phaser";
 
 import { AsteroidGameScene } from "./scenes/asteroidGameScene"
+import { ICanvasDimension } from "../pages/helpers/pickCanvasSize";
 
 export default class Game extends Phaser.Game {
   static defaultConfig: Phaser.Types.Core.GameConfig = {
@@ -21,7 +22,7 @@ export default class Game extends Phaser.Game {
     }
   }
 
-  constructor(canvasConfig: ICanvasConfig) {
+  constructor(canvasConfig: ICanvasDimension) {
     const { defaultConfig } = Game;
     super({
       ...defaultConfig,

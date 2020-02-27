@@ -6,6 +6,7 @@ import dataHandler from "../dataHandler";
 import Game from "../game/game";
 import config from "../config"
 import Axios from "axios";
+import pickCanvasSize from "./helpers/pickCanvasSize";
 
 type P = {
   gameSessionData: ISession,
@@ -45,11 +46,13 @@ class Page extends Component<P, S> {
 
   async componentDidMount() {
     try {
-      const canvasConfig = await dataHandler.getCanvasConfig(window.innerWidth);
-      console.log(canvasConfig);
-
-      // set global sessionData for server script to use
+      const canvasConfig = pickCanvasSize();
+      // set global props for server script to use
       window.session = this.props.gameSessionData;
+      window.htmlCanvas = {
+        canvasWidth: canvasConfig.width,
+        canvasHeight: canvasConfig.height,
+      }
 
       if (this.state.error == null) {
         // render game on <div id="game" />
@@ -74,22 +77,16 @@ class Page extends Component<P, S> {
     window.stop();
   }
 
-  renderGameElements() {
+  renderGameContainer() {
     return (
-      <>
-        {/* <span>{`session Id: ${sessionId}`}</span> */}
-        {/* <span>{`game config: ${sessionConfig}`}</span> */}
-        <div id="game" />
-      </>
+      <div id="game" />
     )
   }
 
   renderAlert() {
     const { error } = this.state;
     return (
-      <>
         <Alert variant="danger">{error.toString()}</Alert>
-      </>
     )
   }
 
@@ -100,7 +97,7 @@ class Page extends Component<P, S> {
       <div className="page">
         {error ?
           this.renderAlert() :
-          this.renderGameElements()
+          this.renderGameContainer()
         }
       </div>
     )

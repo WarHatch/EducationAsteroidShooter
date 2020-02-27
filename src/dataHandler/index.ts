@@ -52,16 +52,7 @@ const getExampleDataUnit = async (): Promise<IGameUnitDataSet> => {
   return data;
 }
 
-const getCanvasConfig = async (windowWidth: number): Promise<ICanvasConfig> => {
-  const { data } = await axios.get<ICanvasConfig>(`${config.gameElementApiURL}/canvasConfig/${windowWidth}`);
-  if (data === null) throw new Error("getCanvasConfig returned null");
-  // @ts-ignore error handling
-  if (data.error !== undefined) throw data;
-  return data;
-}
-
 export default {
   createNewSession,
-  getCanvasConfig,
   getExampleDataUnit,
 }
