@@ -3,6 +3,7 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import datahandler from "../dataHandler";
 import { IGlobalState } from "..";
+import errorHandler from "../errorHandler";
 
 interface P extends RouteComponentProps {
   changeGlobalState: (newState: Partial<IGlobalState>) => void,
@@ -61,9 +62,7 @@ class Page extends Component<P, S> {
       });
       this.props.history.push(`/asteroidGame`);
     } catch (error) {
-      // TODO: monkeypatched payload message extraction
-      this.setState({ error: error.response.data });
-      console.error({...error})
+      errorHandler(error, (errorText) => {})
     }
   }
 

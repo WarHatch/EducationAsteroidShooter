@@ -25,12 +25,11 @@ export interface ISession extends ICreateNewSession {
   finishedAt: Date,
 }
 
-const createNewSession = async (createNewLessonPayload: ICreateNewSession): Promise<ISession> => {
-  const { lessonId } = createNewLessonPayload;
-  // TODO: nested create in sequelize
+const createNewSession = async (createNewSessionPayload: ICreateNewSession): Promise<ISession> => {
+  const { lessonId } = createNewSessionPayload;
   const sessionId = v1();
   const machineRegisteredPayload = {
-    ...createNewLessonPayload,
+    ...createNewSessionPayload,
     sessionId,
   };
 
