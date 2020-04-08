@@ -1,14 +1,15 @@
-import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom';
+import React, { Component } from "react"
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import datahandler from "../dataHandler";
-import { IGlobalState } from '..';
+import { IGlobalState } from "..";
+import errorHandler from "../errorHandler";
 
-type P = {
+interface P extends RouteComponentProps {
   changeGlobalState: (newState: Partial<IGlobalState>) => void,
 }
 
-type S = {
+interface S {
   error: Error,
   lessonIdInput: string,
   studentInput: string,
@@ -23,14 +24,14 @@ class Page extends Component<P, S> {
     this.state = {
       error: null,
 
-      lessonIdInput: "chemistry",
+      lessonIdInput: "",
       studentInput: "",
     };
   }
 
   handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { target } = event;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     const { name } = target;
 
     this.setState((prevState) => {
@@ -59,11 +60,9 @@ class Page extends Component<P, S> {
       changeGlobalState({
         gameSessionData: newSessionData,
       });
-      // @ts-ignore WithRouterStatics
       this.props.history.push(`/asteroidGame`);
     } catch (error) {
-      this.setState({ error });
-      console.error(error)
+      errorHandler(error, (errorText) => {})
     }
   }
 
@@ -80,7 +79,7 @@ class Page extends Component<P, S> {
           <input id="startFormSubmit" type="submit" value="Start!" />
         </form>
         {error &&
-          <Alert variant="danger">{error.message}</Alert>
+          <Alert variant="danger">{error}</Alert>
         }
       </div>
     )
