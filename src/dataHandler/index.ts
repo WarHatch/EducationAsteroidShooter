@@ -5,6 +5,8 @@ import config from "../config"
 // interfaces
 import { IGameUnitDataSet } from "./data";
 
+// TODO: create an AxiosResponse<> interface which supports having error property (res.data.error)
+
 export interface ISessionConfig {
   asteroidSpawnPerMinute: number,
   asteroidSecondsToCrash: number,
@@ -23,12 +25,11 @@ export interface ISession extends ICreateNewSession {
   finishedAt: Date,
 }
 
-const createNewSession = async (createNewLessonPayload: ICreateNewSession): Promise<ISession> => {
-  const { lessonId } = createNewLessonPayload;
-  // TODO: nested create in sequelize
+const createNewSession = async (createNewSessionPayload: ICreateNewSession): Promise<ISession> => {
+  const { lessonId } = createNewSessionPayload;
   const sessionId = v1();
   const machineRegisteredPayload = {
-    ...createNewLessonPayload,
+    ...createNewSessionPayload,
     sessionId,
   };
 
@@ -50,16 +51,7 @@ const getExampleDataUnit = async (): Promise<IGameUnitDataSet> => {
   return data;
 }
 
-const getCanvasConfig = async (windowWidth: number): Promise<ICanvasConfig> => {
-  const { data } = await axios.get<ICanvasConfig>(`${config.gameElementApiURL}/canvasConfig/${windowWidth}`);
-  if (data === null) throw new Error("getCanvasConfig returned null");
-  // @ts-ignore error handling
-  if (data.error !== undefined) throw data;
-  return data;
-}
-
 export default {
   createNewSession,
-  getCanvasConfig,
   getExampleDataUnit,
 }
