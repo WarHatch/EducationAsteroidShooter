@@ -16,7 +16,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "cross-env": "^6.0.3",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "file-loader": "^5.0.2",
     "phaser": "^3.21.0",
     "react": "^16.12.0",
